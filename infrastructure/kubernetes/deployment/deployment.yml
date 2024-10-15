@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-deployment
+  namespace: default
+spec:
+  replicas: 3  # Número de réplicas de tus pods
+  selector:
+    matchLabels:
+      app: api  # Debe coincidir con la etiqueta del selector en el Service
+  template:
+    metadata:
+      labels:
+        app: api  # Debe coincidir con la etiqueta del selector en el Service
+    spec:
+      containers:
+      - name: api
+        image: api:0.0.1  # Imagen del contenedor de la API
+        ports:
+        - containerPort: 8000  # Puerto en el contenedor donde la API escucha
+        
+        
+
+       # Puerto por defecto donde Redis escucha
