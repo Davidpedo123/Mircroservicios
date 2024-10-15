@@ -10,20 +10,20 @@ services:
       - "8050:8050"
 
     volumes:
-      - ../services/api-example/src:/code/src
+      - ../services/api-example/src:/code/api-example/src
     networks:
       - app-network
     mem_limit: 500m
 
   backup:
     build:
-      context: ../services/api-example
+      context: ../services/api-example2
       dockerfile: docker/Dockerfile  # Apunta al Dockerfile en la carpeta 'docker'
     command: uvicorn src.main:app --host 0.0.0.0 --port 8050
     expose:
       - "8050"
     volumes:
-      - ../services/api-example/src:/code/src
+      - ../services/api-example2/src:/code/api-example2/src
     networks:
       - app-network
   nginx:
