@@ -31,7 +31,7 @@ services:
     restart: unless-stopped
     networks:
       - app-network
-    mem_limit: 512m
+    mem_limit: 252m
     
     ports:
       - "80:80"    # http
