@@ -3,11 +3,12 @@ kind: Service
 metadata:
   name: api-service
 spec:
-  type: ClusterIP
+  type: NodePort
   selector:
     app: api
   ports:
   - name: api-port
     protocol: TCP
-    port: 8000
-    targetPort: 8000
+    port: 8050            # Puerto que expone el servicio en el clúster
+    targetPort: 8050       # Puerto dentro del contenedor
+    nodePort: 30001        # Puerto en el nodo para acceder desde fuera del clúster (debe estar entre 30000-32767)
