@@ -15,9 +15,9 @@ spec:
     spec:
       containers:
       - name: api
-        image: api:0.0.1  # Imagen del contenedor de la API
+        image: daviddevpiton/kubernetes-example:kub-example # Imagen del contenedor de la API
         ports:
-        - containerPort: 8000  # Puerto en el contenedor donde la API escucha
+        - containerPort: 8050  # Puerto en el contenedor donde la API escucha
         
         
 
