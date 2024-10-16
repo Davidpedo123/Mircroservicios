@@ -1,0 +1,20 @@
+#Kubernetes
+
+
+# Usa una imagen base de Python 3.10
+FROM python:3.10
+
+# Establece el directorio de trabajo en el contenedor
+WORKDIR /app
+
+# Copia el archivo requirements.txt desde el directorio superior
+COPY ../requirements.txt /app/requirements.txt
+
+# Instala las dependencias especificadas en requirements.txt
+RUN pip install --no-cache-dir --upgrade -r /app/requirements.txt
+
+# Copia todo el contenido del directorio superior (excluyendo .dockerignore)
+COPY ../ /app
+
+# Comando para ejecutar la aplicación
+CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8050"]
