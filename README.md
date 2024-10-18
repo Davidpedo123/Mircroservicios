@@ -6,3 +6,8 @@ El sistema proporciona un API Gateway flexible con implementaciones en Nginx, Fa
 Estructura del proyecto:
 
 ![Descripción de la imagen](https://i.ibb.co/3p57Ls5/general.jpg)
+
+
+API Gateway:
+
+![Descripción de la imagen](https://i.ibb.co/C9tCzZj/Whats-App-Image-2024-10-18-at-3-07-52-PM.jpg)
