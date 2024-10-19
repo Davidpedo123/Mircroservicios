@@ -1,10 +1,8 @@
-# fastapi-gateway/models/user.py
-
 from sqlmodel import SQLModel, Field
 
-class User(SQLModel, table=True):
-    id: int = Field(default=None, primary_key=True)  # ID del usuario, clave primaria
-    username: str = Field(index=True)  # Nombre de usuario, índice para búsquedas rápidas
-    password: str  # Contraseña del usuario
+class Users(SQLModel, table=True):
+    __tablename__ = "users"  # Esto define explícitamente el nombre de la tabla
 
-    
+    id: int = Field(default=None, primary_key=True)
+    username: str = Field(index=True)
+    password: str
