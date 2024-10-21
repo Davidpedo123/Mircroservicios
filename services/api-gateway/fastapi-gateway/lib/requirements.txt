@@ -4,3 +4,4 @@ uvicorn[standar]
 redis
 pyjwt
 sqlmodel
+httpx
