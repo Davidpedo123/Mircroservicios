@@ -22,15 +22,16 @@ services:
       context: ../../services/api-gateway/fastapi-gateway
       dockerfile: deployment/Dockerfile  # Apunta al Dockerfile en la carpeta 'docker'
     command: python3 main.py
+    #command: echo "hola mundo"
     deploy:
-      replicas: 3
+      replicas: 1
     #expose:
     #  - "443"
     ports:
       - "443:443"
 
-    volumes:
-      - ../../services/api-gateway:/code/api-gateway/src/
+    #volumes:
+    #  - ../../services/api-gateway:/code/
     networks:
       - app-network
     mem_limit: 500m

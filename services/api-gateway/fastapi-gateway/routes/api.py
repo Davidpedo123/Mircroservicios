@@ -7,11 +7,11 @@ from routes.service.routing_manager import manager_routing as service1
 
 router = APIRouter()
 
-services = FastAPI()
+#services = FastAPI()
 
 
 #@services.get("/services1")
-#async def service1()
+##async def service1()
 
 # Incluir los routers de otras rutas
 router.include_router(auth, prefix="/auth", tags=["auth"])

@@ -5,3 +5,6 @@ redis
 pyjwt
 sqlmodel
 httpx
+slowapi
+limits
+fastapi-limiter
