@@ -1,14 +1,12 @@
-from fastapi import FastAPI, Request
+# error/not_found.py
+from fastapi import Request, HTTPException
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 
-
-app = FastAPI()
 templates = Jinja2Templates(directory="templates")
 
-
-@app.exception_handler(HTTPException)
+# Manejador de excepción HTTP
 async def http_exception_handler(request: Request, exc: HTTPException):
     if exc.status_code == 404:
         return templates.TemplateResponse("404.html", {"request": request})
-    return HTMLResponse(content="An error occurred", status_code=exc.status_code)
+    

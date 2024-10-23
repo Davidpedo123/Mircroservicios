@@ -8,3 +8,4 @@ httpx
 slowapi
 limits
 fastapi-limiter
+jinja2
