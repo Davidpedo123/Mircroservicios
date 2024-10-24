@@ -1,5 +1,7 @@
+from fastapi import FastAPI, Request
 from starlette.middleware.base import BaseHTTPMiddleware
-import time
+
+app = FastAPI()
 
 class CacheMiddleware(BaseHTTPMiddleware):
     def __init__(self, app: FastAPI):
@@ -8,6 +10,7 @@ class CacheMiddleware(BaseHTTPMiddleware):
 
     async def dispatch(self, request: Request, call_next):
         cache_key = request.url.path
+        
         # Verificar si la respuesta está en caché
         if cache_key in self.cache:
             return self.cache[cache_key]
@@ -17,7 +20,8 @@ class CacheMiddleware(BaseHTTPMiddleware):
 
         # Almacenar la respuesta en caché
         self.cache[cache_key] = response
-        # Establecer un tiempo de vida para el caché
-        response.headers["Cache-Control"] = "max-age=3600"
+
+        # Modificar los encabezados después de la respuesta
+        response.headers["Cache-Control"] = "max-age=15"
 
         return response
