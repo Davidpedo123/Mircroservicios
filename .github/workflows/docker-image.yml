@@ -14,12 +14,14 @@ jobs:
       - uses: actions/checkout@v4
       
       # Instalar Docker
-      - name: Set up Docker
+      - name: Install Docker
         run: |
           sudo apt-get update
-          sudo apt-get install -y docker.io
-          sudo systemctl start docker
-          sudo systemctl enable docker
+          sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common
+          curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+          sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+          sudo apt-get update
+          sudo apt-get install -y docker-ce docker-ce-cli containerd.io
 
       # Instalar Docker Compose
       - name: Install Docker Compose
@@ -29,12 +31,12 @@ jobs:
 
       # Establecer el directorio de trabajo
       - name: run docker-compose
-        working-directory: infrastructure/docker-compose  # Usa la ruta relativa correcta
+        working-directory: infrastructure/docker-compose
         run: docker-compose up --build
-      
+
       # Ejecutar las pruebas
       - name: Run tests
-        working-directory: infrastructure/docker-compose  # Asegúrate de que sea la ruta correcta
+        working-directory: infrastructure/docker-compose
         run: python3 test.py  # Reemplaza con tu servicio y comando de prueba
 
       # Paso condicional que se ejecuta solo si el script de pruebas fue exitoso
