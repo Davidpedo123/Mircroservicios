@@ -4,15 +4,10 @@
 
 
 `Archivo de configuracion automatizado`: El archivo 
-`create_config.py` creara el archivo compose de manera automatica en base a las respuestas que responda, todavia posee algunos errores como son la incorrecta indeanteacion y la evasion del parametro network al terminar los servicios, pero sigue siendo funcional para q funcione correctamente tendria q ir al archivo generado y en cada valor del parameto ejemplo `expose:
-   									 - '8050'  agregar un tab, q el guion quede en la tercera letra del parametro`
+`create_config.py` creara el archivo compose de manera automatica en base a las respuestas que responda, errores no resueltos en el script, en el parametro `port` debe asignar el port que quiere q se exponga en el host si no lo hace sera aleatoria, osea que si el puerto q asigno en ports es el 443 en este caso sera el q se exponga en el cluster y en el archivo de configuracion posterior, no asgino el otro puerto q se expondra en el host se asignara este valor de manera random
 
-la otra solucion para el problema del networking es agregar el parametro networks: seguido del nombre de la red q definio y el parametro driver
-`
-networks:
-  app-network:
-    driver: bridge
-`
+
+
 Con docker compose podremos orquestar nuestros contenedores, de la siguiente manera:
 
 1-`Creamos los servicios a usar`: en el modelo actual los servicios, que se alojaran en la carpeta `Microservicios/services/` alojaremos lo que es la logica de nuestra aplicacion, en el modelo actual, tenemos varios servicios que uno es una replica del otro, llamados `api-example y api-example2`.
