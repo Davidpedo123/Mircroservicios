@@ -48,7 +48,7 @@ jobs:
       # Ejecutar pruebas si es necesario
       - name: Run tests
         run: |
-          python3 test.py  # Ajusta la ruta de tu script de pruebas
+          python3 infrastructure/docker-compose/test.py  # Ajusta la ruta de tu script de pruebas
         continue-on-error: false  # Asegúrate de que esto se detenga en caso de fallo
 
       # Condicionales para manejar el éxito o el fallo
