@@ -27,12 +27,11 @@ jobs:
           pip install requests
 
       # Imprimir el directorio actual y listar archivos
-      - name: Print current directory and list files
+      - name: Verificar la ruta y archivos
         run: |
-          echo "Current working directory:"
-          pwd  # Imprime el directorio de trabajo actual
-          echo "Listing files:"
-          ls -R  # Lista todos los archivos y directorios recursivamente
+          echo "Directorio actual: $(pwd)"
+          ls -R infrastructure/docker-compose
+
 
       # Usar un contenedor de Docker preconfigurado
       - name: Run Docker in Docker
