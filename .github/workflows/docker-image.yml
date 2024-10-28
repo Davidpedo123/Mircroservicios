@@ -11,40 +11,44 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
-      
-      # Instalar Docker
-      - name: Install Docker
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Instalar Python
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'  # Especifica la versión de Python que necesitas
+
+      # Instalar requests
+      - name: Install requests
         run: |
-          sudo apt-get update
-          sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common
-          curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-          sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-          sudo apt-get update
-          sudo apt-get install -y docker-ce docker-ce-cli containerd.io
+          python -m pip install --upgrade pip
+          pip install requests
 
-      # Instalar Docker Compose
-      - name: Install Docker Compose
-        run: |
-          sudo curl -L "https://github.com/docker/compose/releases/download/$(curl -s https://api.github.com/repos/docker/compose/releases/latest | grep tag_name | cut -d '\"' -f 4)/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-          sudo chmod +x /usr/local/bin/docker-compose
+      # Usar un contenedor de Docker preconfigurado
+      - name: Run Docker in Docker
+        uses: docker://docker:latest
+        with:
+          args: |
+            sh -c "
+            cd /workspace/infrastructure/docker-compose && \
+            # Construir y ejecutar los servicios
+            docker-compose up --build
+            "
+        continue-on-error: false  # Esto es por defecto; el flujo se detendrá si falla
 
-      # Establecer el directorio de trabajo
-      - name: run docker-compose
-        working-directory: infrastructure/docker-compose
-        run: docker-compose up --build
-
-      # Ejecutar las pruebas
+      # Ejecutar pruebas si es necesario
       - name: Run tests
-        working-directory: infrastructure/docker-compose
-        run: python3 test.py  # Reemplaza con tu servicio y comando de prueba
+        run: |
+          python3 test.py # Ajusta la ruta de tu script de pruebas
+        continue-on-error: false  # Asegúrate de que esto se detenga en caso de fallo
 
-      # Paso condicional que se ejecuta solo si el script de pruebas fue exitoso
-      - name: Do something if tests are successful
-        if: ${{ success() }}
-        run: echo "Las pruebas fueron exitosas. Continuando con el flujo de trabajo..."
+      # Condicionales para manejar el éxito o el fallo
+      - name: Check for success
+        if: success()  # Este paso solo se ejecutará si todos los pasos anteriores fueron exitosos
+        run: echo "El workflow se ejecutó correctamente."
 
-      # Paso condicional que se ejecuta solo si el script de pruebas falló
-      - name: Fail the workflow
-        if: ${{ failure() }}
-        run: echo "Las pruebas fallaron. Abortando el flujo de trabajo."
+      - name: Check for failure
+        if: failure()  # Este paso se ejecutará solo si hay algún fallo en pasos anteriores
+        run: echo "Hubo un error en el workflow."
