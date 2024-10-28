@@ -26,6 +26,14 @@ jobs:
           python -m pip install --upgrade pip
           pip install requests
 
+      # Imprimir el directorio actual y listar archivos
+      - name: Print current directory and list files
+        run: |
+          echo "Current working directory:"
+          pwd  # Imprime el directorio de trabajo actual
+          echo "Listing files:"
+          ls -R  # Lista todos los archivos y directorios recursivamente
+
       # Usar un contenedor de Docker preconfigurado
       - name: Run Docker in Docker
         uses: docker://docker:latest
@@ -41,7 +49,7 @@ jobs:
       # Ejecutar pruebas si es necesario
       - name: Run tests
         run: |
-          python3 test.py # Ajusta la ruta de tu script de pruebas
+          python3 path/to/your/test_script.py  # Ajusta la ruta de tu script de pruebas
         continue-on-error: false  # Asegúrate de que esto se detenga en caso de fallo
 
       # Condicionales para manejar el éxito o el fallo
