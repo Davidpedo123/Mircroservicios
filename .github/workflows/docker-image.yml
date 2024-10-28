@@ -17,7 +17,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.10'  # Especifica la versión de Python que necesitas
+          python-version: '3.9'  # Especifica la versión de Python que necesitas
 
       # Instalar dependencias
       - name: Install dependencies
@@ -27,12 +27,12 @@ jobs:
 
       # Establecer el directorio de trabajo
       - name: run docker-compose
-        working-directory: ../../infraestructure/docker-compose
+        working-directory: infrastructure/docker-compose  # Usa la ruta relativa correcta
         run: docker-compose up --build
       
       # Ejecutar las pruebas
       - name: Run tests
-        working-directory: ../../infraestructure/docker-compose
+        working-directory: infrastructure/docker-compose  # Asegúrate de que sea la ruta correcta
         run: python3 test.py  # Reemplaza con tu servicio y comando de prueba
 
       # Paso condicional que se ejecuta solo si el script de pruebas fue exitoso
