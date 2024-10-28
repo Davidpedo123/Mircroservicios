@@ -39,7 +39,7 @@ jobs:
         with:
           args: |
             sh -c "
-            cd /workspace/infrastructure/docker-compose && \
+            cd infrastructure/docker-compose && \
             # Construir y ejecutar los servicios
             docker-compose up --build
             "
@@ -48,7 +48,7 @@ jobs:
       # Ejecutar pruebas si es necesario
       - name: Run tests
         run: |
-          python3 path/to/your/test_script.py  # Ajusta la ruta de tu script de pruebas
+          python3 test.py  # Ajusta la ruta de tu script de pruebas
         continue-on-error: false  # Asegúrate de que esto se detenga en caso de fallo
 
       # Condicionales para manejar el éxito o el fallo
