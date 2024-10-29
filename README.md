@@ -11,3 +11,6 @@ La idea es que el dev solo cree un servicio nuevo en el cual aqui se encuentre t
 
 ![image1](https://i.ibb.co/Jr4gTPp/componentes.jpg)
 
+`Casos de uso de la API Gateway hecha en fastapi`:
+
+![image2](https://i.ibb.co/T8XJ2WK/casos-de-uso.jpg)
