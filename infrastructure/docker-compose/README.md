@@ -1,7 +1,7 @@
 #Docker Compose
 
 
-
+pRUEBA
 
 `Archivo de configuracion automatizado`: El archivo 
 `create_config.py` creara el archivo compose de manera automatica en base a las respuestas que responda, errores no resueltos en el script, en el parametro `port` debe asignar el port que quiere q se exponga en el host si no lo hace sera aleatoria, osea que si el puerto q asigno en ports es el 443 en este caso sera el q se exponga en el cluster y en el archivo de configuracion posterior, no asgino el otro puerto q se expondra en el host se asignara este valor de manera random
