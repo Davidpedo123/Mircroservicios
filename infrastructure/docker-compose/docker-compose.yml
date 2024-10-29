@@ -1,67 +1,36 @@
+version: '3.8'
 services:
   api:
     build:
       context: ../../services/api-example
-      dockerfile: docker/Dockerfile  # Apunta al Dockerfile en la carpeta 'docker'
-    command: uvicorn src.main:app --host 0.0.0.0 --port 8050
-    #deploy:
-    #  replicas: 3
+      dockerfile: docker/Dockerfile
     expose:
-      - "8050"
-    #ports:
-      - "8050:8050"
-
+      - '8050'
     volumes:
       - ../../services/api-example/src:/code/api-example/src
     networks:
-      - app-network
-    mem_limit: 500m
-
-  api-gateway:
-    build:
-      context: ../../services/api-gateway/fastapi-gateway
-      dockerfile: deployment/Dockerfile  # Apunta al Dockerfile en la carpeta 'docker'
-    command: python3 main.py
-    #command: echo "hola mundo"
-    deploy:
-      replicas: 1
-    #expose:
-    #  - "443"
-    ports:
-      - "443:443"
-
-    #volumes:
-    #  - ../../services/api-gateway:/code/
-    networks:
-      - app-network
-    mem_limit: 500m
-    
-  backup:
+      - net
+    command: uvicorn src.main:app --host 0.0.0.0 --port 8050
+  api2:
     build:
       context: ../../services/api-example2
       dockerfile: docker/Dockerfile
-    command: uvicorn src.main:app --host 0.0.0.0 --port 8050
     expose:
-      - "8050"
+      - '8050'
     volumes:
       - ../../services/api-example2/src:/code/api-example2/src
     networks:
-      - app-network
-  #nginx:
-  #  image: nginx:1
-  #  restart: unless-stopped
-  #  networks:
-  #    - app-network
-  #  mem_limit: 252m
-    
-  #  ports:
-  #    - "80:80"    # http
-  #    - "443:443"  # https
-  #  volumes:
-  #   - ../../services/api-gateway/nginx/default.conf:/etc/nginx/conf.d/default.conf
-  #    - ../../services/api-gateway/nginx/.htpasswd:/etc/apache2/.htpasswd
-  #    - ../../services/api-gateway/nginx/certificate.pem:/etc/ssl/certs/certificate.pem
-  #    - ../../services/api-gateway/nginx/key.pem:/etc/ssl/certs/key.pem
+      - net
+    command: uvicorn src.main:app --host 0.0.0.0 --port 8050
+  gateway:
+    build:
+      context: ../../services/api-gateway/fastapi-gateway
+      dockerfile: deployment/Dockerfile
+    ports:
+      - '80:80'
+    networks:
+      - net
+    command: python3 main.py
 networks:
-  app-network:
+  net:
     driver: bridge

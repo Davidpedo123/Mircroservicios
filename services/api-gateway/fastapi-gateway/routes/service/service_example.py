@@ -3,7 +3,7 @@ import httpx
 from ..load_balancer.round_robin import RoundRobin
 
 
-servers = ["http://api:8050", "http://backup:8050"]  # Asegúrate de que las URLs sean correctas
+servers = ["http://api:8050", "http://api2:8050"]  # Asegúrate de que las URLs sean correctas
 rr = RoundRobin(servers)
 
 async def hellowork():
