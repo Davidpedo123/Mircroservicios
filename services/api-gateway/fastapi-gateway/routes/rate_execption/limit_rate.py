@@ -8,9 +8,9 @@ async def rate_limit_exceeded(request: Request, exc: RateLimitExceeded):
         content={
             "message": "Too Many Requests",
             "error": {
-                "detail": str(exc),  # Mensaje detallado de la excepción
-                "allowed": exc.allowed,  # Cantidad de peticiones permitidas
-                "retry_after": exc.retry_after,  # Tiempo en segundos para esperar
+                "detail": str(exc),  
+                "allowed": exc.allowed,  
+                "retry_after": exc.retry_after,  
             },
         },
     )
