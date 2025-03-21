@@ -14,26 +14,26 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Instalar Python
+      
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.9'  # Especifica la versión de Python que necesitas
+          python-version: '3.11' 
 
-      # Instalar requests
+     
       - name: Install requests
         run: |
           python -m pip install --upgrade pip
           pip install requests
 
-      # Imprimir el directorio actual y listar archivos
+      
       - name: Verificar la ruta y archivos
         run: |
           echo "Directorio actual: $(pwd)"
           ls -R infrastructure/docker-compose
 
 
-      # Usar un contenedor de Docker preconfigurado
+      
       - name: Run Docker in Docker
         uses: docker://docker:latest
         with:
@@ -43,19 +43,19 @@ jobs:
             # Construir y ejecutar los servicios
             docker-compose up --build -d
             "
-        continue-on-error: false  # Esto es por defecto; el flujo se detendrá si falla
+        continue-on-error: false  
 
-      # Ejecutar pruebas si es necesario
+      
       - name: Run tests
         run: |
-          python3 infrastructure/docker-compose/test.py  # Ajusta la ruta de tu script de pruebas
-        continue-on-error: false  # Asegúrate de que esto se detenga en caso de fallo
+          python3 infrastructure/docker-compose/test.py 
+        continue-on-error: false  
 
-      # Condicionales para manejar el éxito o el fallo
+      
       - name: Check for success
-        if: success()  # Este paso solo se ejecutará si todos los pasos anteriores fueron exitosos
+        if: success()  
         run: echo "El workflow se ejecutó correctamente."
 
       - name: Check for failure
-        if: failure()  # Este paso se ejecutará solo si hay algún fallo en pasos anteriores
+        if: failure()  
         run: echo "Hubo un error en el workflow."
